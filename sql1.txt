@@ -6,23 +6,36 @@ SELECT * FROM Products LIMIT 5;
 1. Use an SQL SELECT statement to retrieve the first 10 rows of the Customer table, ordered by CustomerName.
 Paste your SQL statement below:
 
+select * from Customers
+order by CustomerName
+limit 10;
 
 2. Use an SQL Select statement to retrieve the names and prices for all products that cost less than $20.
 Paste your SQL statement below:
 
+Select ProductName, Price from Products
+where price < 20;
 
 3. Retrieve all employees whose last name starts with C.  Paste your SQL statement below:
 
+select FirstName, LastName from Employees
+where LastName like "C%";
 
 4. Retrieve the order ID and customer name for all orders where the customer name starts with A.
 Here you will have to do a join of the Orders table and the Customers table.  Paste your SQL
 statement below.
 
+select orderid, customername from orders
+inner join customers on orders.customerid = customers.customerid
+where customers.customername like 'A%';
 
 5. Retrieve the list of customers, ordered by customer name, along with their order IDs.  Note
 that not every customer has an order, but be sure that you include those customers without orders
 in the results of the query.  Paste your SQL statement below.
 
+select orderid, customername from orders
+left join customers on orders.customerid = customers.customerid
+order by customers.customername;
 
 
 6. Retrieve the list of customer names for customers that have no orders.  There are two ways to do this
@@ -33,11 +46,17 @@ SELECT CustomerName FROM Customers WHERE CustomerID NOT IN (SELECT CustomerID FR
 This is a subquery -- we haven't talked about those.  But, you can do the same thing with a left
 join by comparing the OrderID column with NULL.  Paste your SQL statement below.
 
-
+select Orders.OrderId, Customers.Customername from Orders
+right join Customers on Orders.CustomerId = Customers.CustomerId
+where Orders.OrderId is NULL;
 
 7. Retrieve the OrderID and ProductName of every order for a product with Tofu in the name.
 Paste your SQL statement below.  You will have to join Orders, OrderDetails, and Products.
 
+select Orders.OrderId, Products.ProductName from Orders
+inner join OrderDetails on Orders.OrderId = OrderDetails.OrderId
+inner join Products on Orderdetails.ProductId = Products.ProductId
+where ProductName like "%Tofu%";
 
 
 
